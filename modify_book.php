@@ -31,12 +31,12 @@ if (isset($_POST['book_id'])) {
             <nav>
                 <ul>
                     <li class="mb-4"><a href="index.php" class="block py-2 px-4 rounded hover:bg-blue-700">Tableau de Bord</a></li>
-                    <li class="mb-4"><a href="livres.php" class="block py-2 px-4 rounded hover:bg-blue-700">Livres</a></li>
-                    <li class="mb-4"><a href="#" class="block py-2 px-4 rounded hover:bg-blue-700">Catégories</a></li>
-                    <li class="mb-4"><a href="#" class="block py-2 px-4 rounded hover:bg-blue-700">Utilisateurs</a></li>
-                    <li class="mb-4"><a href="#" class="block py-2 px-4 rounded hover:bg-blue-700">Réservations</a></li>
-                    <li class="mb-4"><a href="#" class="block py-2 px-4 rounded hover:bg-blue-700">Statistiques</a></li>
-                    <li class="mb-4"><a href="#" class="block py-2 px-4 rounded hover:bg-blue-700">Paramètres</a></li>
+                    <li class="mb-4"><a href="livres.php" class="block py-2 px-4 rounded hover:bg-blue-700 bg-blue-700">Livres</a></li>
+                    <li class="mb-4"><a href="categories.php" class="block py-2 px-4 rounded hover:bg-blue-700">Catégories</a></li>
+                    <li class="mb-4"><a href="utilisateurs.php" class="block py-2 px-4 rounded hover:bg-blue-700">Utilisateurs</a></li>
+                    <li class="mb-4"><a href="reservations.php" class="block py-2 px-4 rounded hover:bg-blue-700">Réservations</a></li>
+                    <li class="mb-4"><a href="statistiques.php" class="block py-2 px-4 rounded hover:bg-blue-700">Statistiques</a></li>
+                    
                 </ul>
             </nav>
         </aside>
@@ -72,6 +72,7 @@ if (isset($_POST['book_id'])) {
                         <label for="category" class="block text-sm font-medium">Catégorie</label>
                         <input type="text" id="category" name="category" value="<?php echo $infoOfteBook->category_id ;?>" required class="mt-1 block w-full border border-gray-300 rounded-md p-2" />
                     </div>
+                    <input type="hidden" name="book_id" value="<?php echo $infoOfteBook->id; ?>" />
                     <button type="submit" name="Mettre_Jour" class="bg-blue-600 text-white px-4 py-2 rounded">Mettre à Jour le Livre</button>
                 </form>
             </div>

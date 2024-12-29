@@ -60,4 +60,5 @@ class Database2 {
             echo "error in prepare and execute: " . $e->getMessage();
         }
     }
+    
 };

@@ -6,37 +6,7 @@ $connectTodb->connect() ;
 
 $bibliotheque = new Bibliotheque($connectTodb);
 $books = $bibliotheque->getAllBooks(); 
-echo "<pre>";
-var_dump($bibliotheque->getBookWihtId(3)[0]->id) ;
-echo "</pre>";
-if(isset($_POST["AddBook"])){
-  $titre = $_POST["title"] ;
-  $auteur = $_POST["author"] ;
-  $resume = $_POST["resume"] ;
-  $img = $_POST["cover_image"] ;
-  $categorie = $_POST["category"] ;
-  $msg = null ;
 
-  if(!empty($titre) && !empty($auteur) &&  !empty($resume) && !empty($img) && !empty($categorie)  ){
-    
-    try {
-    $result = $connectTodb->prepareAndExecute(
-        "INSERT INTO books (title, author, category_id, cover_image, summary) VALUES (?, ?, ?, ?, ?);",
-        [$titre, $auteur, $categorie, $img, $resume]
-    );
-
-    if ($result) {
-      $msg = true ;
-      header("Location:  livres.php") ;
-    } else {
-        echo "book not added " ;
-    }
-} catch (Exception $e) {
-    echo "eror book nto added " . $e->getMessage();
-}
-  }else  $msg =  false ;
-  
-}
 
 
 ?>
@@ -58,11 +28,10 @@ if(isset($_POST["AddBook"])){
         <ul>
           <li class="mb-4"><a href="index.php" class="block py-2 px-4 rounded hover:bg-blue-700 <?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'bg-blue-700' : ''; ?>">Tableau de Bord</a></li>
           <li class="mb-4"><a href="livres.php" class="block py-2 px-4 rounded hover:bg-blue-700 <?php echo basename($_SERVER['PHP_SELF']) == 'livres.php' ? 'bg-blue-700' : ''; ?>">Livres</a></li>
-          <li class="mb-4"><a href="#" class="block py-2 px-4 rounded hover:bg-blue-700 <?php echo basename($_SERVER['PHP_SELF']) == 'categories.php' ? 'bg-blue-700' : ''; ?>">Catégories</a></li>
-          <li class="mb-4"><a href="#" class="block py-2 px-4 rounded hover:bg-blue-700 <?php echo basename($_SERVER['PHP_SELF']) == 'utilisateurs.php' ? 'bg-blue-700' : ''; ?>">Utilisateurs</a></li>
-          <li class="mb-4"><a href="#" class="block py-2 px-4 rounded hover:bg-blue-700 <?php echo basename($_SERVER['PHP_SELF']) == 'reservations.php' ? 'bg-blue-700' : ''; ?>">Réservations</a></li>
-          <li class="mb-4"><a href="#" class="block py-2 px-4 rounded hover:bg-blue-700 <?php echo basename($_SERVER['PHP_SELF']) == 'statistiques.php' ? 'bg-blue-700' : ''; ?>">Statistiques</a></li>
-          <li class="mb-4"><a href="#" class="block py-2 px-4 rounded hover:bg-blue-700 <?php echo basename($_SERVER['PHP_SELF']) == 'parametres.php' ? 'bg-blue-700' : ''; ?>">Paramètres</a></li>
+          <li class="mb-4"><a href="categories.php"class="block py-2 px-4 rounded hover:bg-blue-700 <?php echo basename($_SERVER['PHP_SELF']) == 'categories.php' ? 'bg-blue-700' : ''; ?>">Catégories</a></li>
+          <li class="mb-4"><a href="utilisateurs.php" class="block py-2 px-4 rounded hover:bg-blue-700 <?php echo basename($_SERVER['PHP_SELF']) == 'utilisateurs.php' ? 'bg-blue-700' : ''; ?>">Utilisateurs</a></li>
+          <li class="mb-4"><a href="reservations.php" class="block py-2 px-4 rounded hover:bg-blue-700 <?php echo basename($_SERVER['PHP_SELF']) == 'reservations.php' ? 'bg-blue-700' : ''; ?>">Réservations</a></li>
+          <li class="mb-4"><a href="statistiques.php" class="block py-2 px-4 rounded hover:bg-blue-700 <?php echo basename($_SERVER['PHP_SELF']) == 'statistiques.php' ? 'bg-blue-700' : ''; ?>">Statistiques</a></li>
         </ul>
       </nav>
     </aside>
@@ -77,7 +46,7 @@ if(isset($_POST["AddBook"])){
       <!-- Add Book Section -->
       <div class="mb-10">
         <h3 class="text-xl font-bold mb-2">Ajouter un Livre</h3>
-        <form  method="POST" >
+        <form action="Addbook.php" method="POST" enctype="multipart/form-data">
           <?php if(!empty($msg)){
 
             if($msg == true){
@@ -118,18 +87,23 @@ if(isset($_POST["AddBook"])){
         <table class="min-w-full bg-white border border-gray-300">
           <thead>
             <tr>
+              <th class="py-2 px-4 border-b">image</th>
               <th class="py-2 px-4 border-b">Titre</th>
               <th class="py-2 px-4 border-b">Auteur</th>
               <th class="py-2 px-4 border-b">Catégorie</th>
+              <th class="py-2 px-4 border-b">status</th>
               <th class="py-2 px-4 border-b">Actions</th>
             </tr>
           </thead>
           <tbody>
             <?php foreach ($books as $book): ?>
               <tr>
+                <td class="py-2 px-4 border-b"><img src='<?php echo $book->image_path ?>' width='150' height='150'> </td>
                 <td class="py-2 px-4 border-b"><?php echo $book->title ;?></td>
                 <td class="py-2 px-4 border-b"><?php echo $book->author ; ?></td>
                 <td class="py-2 px-4 border-b"><?php echo $book->category_id ; ?></td>
+                <td class="py-2 px-4 border-b"><?php echo $book->status ; ?></td>
+                
                 <td class="py-2 px-4 border-b">
                   <form action="modify_book.php" method="POST" class="inline">
                     <input type="hidden" name="book_id" value="<?php echo $book->id ?>" />
