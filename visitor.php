@@ -68,7 +68,7 @@ $authors = $visitor->getAuthors();
             <i class="fas fa-book text-2xl"></i>
             <a href="user.php" class="ml-2 text-xl font-bold">Lorenz Book</a>
         </div>
-        <a href="login.php" class="text-white hover:text-gray-300">Login</a>
+        <a href="index.php" class="text-white hover:text-gray-300">Login</a>
     </div>
 
     <div class="container mx-auto px-4 py-6">

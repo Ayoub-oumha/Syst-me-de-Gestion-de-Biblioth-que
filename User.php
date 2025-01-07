@@ -3,18 +3,20 @@ session_start();
 
 // Redirect if not logged in
 if (!isset($_SESSION['user'])) {
-    header('Location: test.php');
+    header('Location: index.php');
     exit;
 }
 
 // Logout logic
 if (isset($_POST['logout'])) {
     session_destroy();
-    header('Location: test.php');
+    header('Location: index.php');
     exit;
 }
 
 require_once 'config/database.php'; // Include your database class
+require_once 'userC.php'; // Include your database class
+
 
 // Fetch books
 function getBooks($pdo) {
