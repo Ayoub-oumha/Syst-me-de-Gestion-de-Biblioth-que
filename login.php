@@ -2,7 +2,7 @@
 session_start();
 
 require_once 'config/database.php'; // Include your database class
-require_once 'userC.php'; // Include your database class
+require_once 'class/userC.php'; // Include your database class
 
 
 $error_message = "";
@@ -41,8 +41,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif (isset($_POST['show_login'])) {
         $show_login = true;
         $show_signup = false;
-    } elseif (isset($_POST['visitor'])) {
-        header("Location: visitor.php");
         exit;
     }
 }
@@ -81,9 +79,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <button type="submit" name="login" class="w-full px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Login</button>
             </form>
 
-            <form method="POST" action="" class="text-center mt-4">
+                <div class="text-center mt-4">
+            <form method="POST" action="visitor.php">
                 <button type="submit" name="visitor" class="px-4 py-2 text-white bg-gray-500 rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500">Continue as Visitor</button>
             </form>
+        </div>
 
             <form method="POST" action="" class="text-center mt-4">
                 <button type="submit" name="show_signup" class="text-blue-500 hover:underline">Don’t have an account? Sign up</button>
